@@ -8,18 +8,38 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource {
+    
+    
+    var list = ["Marvin", "Kevin", "Masato", "Kavya", "Shruta", "Colin", "Tahim", "Charles", "Heather", "Kyle", "Frank", "Anna"]
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        tableView.dataSource = self
+        print("first function")
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    
+    // function for all counts within the cell
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("count function")
+        return list.count
     }
-
-
+    
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let randAge = Int(arc4random_uniform(100) + 5)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath)
+        print("edit function")
+        cell.textLabel?.text = list[indexPath.row]
+        cell.detailTextLabel?.text = "\(randAge) years old"
+        return cell
+    }
+    
 }
 
